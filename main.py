@@ -1,16 +1,9 @@
-# This is a sample Python script.
+lists = [0] * (4+6+1)
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+for a in range(1, 5):
+    for b in range(1, 7):
+        lists[a+b] += 1
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+for i in range(4+6+1):
+    if lists[i] == max(lists):
+        print(i, end=' ')
