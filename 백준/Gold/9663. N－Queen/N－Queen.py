@@ -1,12 +1,9 @@
-#pypy3
 import sys
-
 n = int(sys.stdin.readline())
-arr = [0 for _ in range(n)]  # index: 행, 값: 열
-sum = 0
+col = [0 for _ in range(n)]
+ans = 0
 
-
-def check(r1, c1, r2, c2):
+def attackable(r1, c1, r2, c2):
     if c1 == c2:
         return True
     if r1 - c1 == r2 - c2:
@@ -15,23 +12,22 @@ def check(r1, c1, r2, c2):
         return True
     return False
 
-
-def dfs(row):
+def rec_func(row):
     if row == n:
-        global sum
-        sum += 1
+        global ans
+        ans += 1
     else:
-        for cand in range(n):  # 열
+        for cand in range(n):
             possible = True
-            for r in range(row):  # 이전 행들에 대해서 대각선, 열 값 같은지 확인:
-                if check(row, cand, r, arr[r]):
+            for i in range(row):
+                if attackable(row, cand, i, col[i]):
                     possible = False
                     break
+            
             if possible:
-                arr[row] = cand
-                dfs(row + 1)
-                arr[row] = 0
+                col[row] = cand
+                rec_func(row + 1)
+                col[row] = 0
 
-
-dfs(0)
-print(sum)
+rec_func(0)
+print(ans)
