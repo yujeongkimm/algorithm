@@ -1,23 +1,23 @@
 import sys
 n = int(sys.stdin.readline())
-a = []
-
+arr = [0] * n
 for i in range(n):
-    a.append(int(sys.stdin.readline()))
+    arr[i] = int(sys.stdin.readline())
+arr.sort()
 
-a.sort()
-
-mode = a[0]
-modeCnt = 1
-curCnt = 1
+before = arr[0]
+cnt = 1
+max_cnt = 1
+value = arr[0]
 
 for i in range(1, n):
-    if a[i] == a[i-1]:
-        curCnt += 1
+    if before == arr[i]:
+        cnt += 1
     else:
-        curCnt = 1
-    if modeCnt < curCnt:
-        modeCnt = curCnt;
-        mode = a[i]
+        before = arr[i]
+        cnt = 1
+    if cnt > max_cnt:
+        max_cnt = cnt
+        value = arr[i]
 
-print(mode)
+print(value)
