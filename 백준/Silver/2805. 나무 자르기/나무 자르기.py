@@ -1,21 +1,21 @@
-# mid가 절단기 높이 -> 성공(m보다 크다) -> 후보o
-# -> 절단한 나무 길이 줄여야됨 = 절단기의 높이는 증가해야 함 -> start = mid+1
-
-# mid가 절단기 높이 -> 실패(자른 나무 길이가 m보다 작다) ->
-# 절단기 높이 줄어야함 -> end = mid - 1
-
-n,m = map(int, input().split())
-tree = list(map(int, input().split()))
-tree.sort()
-start, end = 0, max(tree)
+n,m=map(int,input().split())
+arr = list(map(int,input().split()))
+arr.sort()
+# 절단기 높이 = mid
+# 자른 나무 길이 < m => 가져가는 나무 길이 늘림 => 절단기 높이 줄어야함 => 범위 less
+# 자른 나무 길이 > m => 성공 => 최소값을 만족하는 절단기 높이 구해야함 => 가져가는 나무 길이 줄임 => 절단기 높이 늘림 => 범위 more
+# 자른 나무 길이 = m => 성공 => 루프문 빠져나가야 함 => start값 조절
+# ❔start가 end보다 커지는 순간 => end가 절단기 높이 최대값
+# 10 15 17 20
+start,end=0,max(arr)
 while start<=end:
     mid=(start+end)//2
-    sum=0
-    for i in tree:
-        if i>=mid:
-            sum+=i-mid
-    if sum>=m:
-        start=mid+1
-    else:
+    res=0
+    for tree in arr:
+        if tree>mid:
+            res+=tree-mid
+    if res<m:
         end=mid-1
+    else:
+        start=mid+1
 print(end)
