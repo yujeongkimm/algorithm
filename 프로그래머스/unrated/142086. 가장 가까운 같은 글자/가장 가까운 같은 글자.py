@@ -1,13 +1,11 @@
 def solution(s):
     answer = []
-    for i in range(len(s)):
-        first = s.find(s[i])    # 처음 
-        if first == i:  # 처음 나온 문자이면
+    dict = {}
+    for idx,word in enumerate(s):
+        if word not in dict:
             answer.append(-1)
-        else:   # 몇칸 떨어져있는지
-            # 가장 가까운 글자 찾기
-            sliced = s[:i]
-            reverse = sliced[::-1]
-            find = reverse.find(s[i])
-            answer.append(find+1)
+            dict[word]=idx
+        else:
+            answer.append(idx-dict[word])
+            dict[word]=idx
     return answer
