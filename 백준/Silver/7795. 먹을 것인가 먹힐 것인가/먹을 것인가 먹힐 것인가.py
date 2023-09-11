@@ -1,5 +1,6 @@
+#http://boj.kr/7795
 import sys
-
+# 이분탐색 => 특정 값의 위치가 궁금할 때
 def binary_search(arr, target):
     start, end = 0, len(arr)-1
     res=-1

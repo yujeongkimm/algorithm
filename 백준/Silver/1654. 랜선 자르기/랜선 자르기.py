@@ -1,3 +1,4 @@
+# https://velog.io/@jungmiin/백준파이썬이진탐색-8주차-문제풀이
 import sys
 k,n=map(int,input().split())
 arr=[int(sys.stdin.readline()) for _ in range(k)]
