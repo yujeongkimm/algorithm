@@ -1,33 +1,42 @@
 import sys
-from collections import deque
-si = sys.stdin.readline
-n, m = map(int, si().split())
-a = [si().strip() for _ in range(n)]
 sys.setrecursionlimit(100000)
 
-visit = [[False] * m for _ in range(n)]
-dir = [[1, 0], [0, 1], [-1, 0], [0, -1]]
-totalSheep, totalWolf, sheep, wolf = 0, 0, 0, 0
+r,c=map(int,input().split())
+graph=[]
+for _ in range(r):
+    graph.append(list(map(str, input())))
+# 영역에서 #가 아니면 탐색
+def dfs(x,y):
+    if x<=-1 or x>=r or y<=-1 or y>=c:
+        return False
+    # 범위체크
+    if graph[x][y]!='#':
+        global wolf_cnt, sheep_cnt
+        if graph[x][y]=='v':
+            wolf_cnt+=1
+        if graph[x][y]=='o':
+            sheep_cnt+=1
+        # 탐색할 수 있다.
+        graph[x][y]='#' #방문처리
+        # 상,하,좌,우
+        dfs(x-1,y)
+        dfs(x+1,y)
+        dfs(x,y+1)
+        dfs(x,y-1)
+        return True
+    return False
 
-def dfs(x, y):
-    global sheep, wolf
-    if a[x][y] == 'o':
-        sheep += 1
-    if a[x][y] == 'v':
-        wolf += 1
-    visit[x][y] = True
-    for dx, dy in dir:
-        nx, ny = x + dx, y + dy
-        if nx < 0 or nx >= n or ny < 0 or ny >= m: continue
-        if visit[nx][ny]: continue
-        if a[nx][ny] == '#': continue
-        dfs(nx, ny)
+total_sheep, total_wolf = 0,0
+sheep_cnt=0 #영역 안 양의 수
+wolf_cnt=0 # 영역 안 늑대 수
+for i in range(r):
+    for j in range(c):
+        if dfs(i,j)==True: # 구간 탐색 완료
+            # 영역 안에 양의 수가 더 많으면
+            if sheep_cnt > wolf_cnt:
+                total_sheep+=sheep_cnt
+            else:
+                total_wolf+=wolf_cnt
 
-for i in range(n):
-    for j in range(m):
-        if a[i][j] != '#' and not visit[i][j]:
-            sheep, wolf = 0, 0
-            dfs(i, j)
-            if sheep > wolf: totalSheep += sheep
-            else: totalWolf += wolf
-print(totalSheep, totalWolf)
+            sheep_cnt, wolf_cnt = 0,0 # 초기화
+print(total_sheep, total_wolf)
