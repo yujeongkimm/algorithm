@@ -1,18 +1,28 @@
 n=int(input())
-arr=list(map(int,input().split()))
+a=list(map(int,input().split()))
 x=int(input())
-arr.sort()  # 1 2 3 5 ...
-ans=0
-for i in range(n):  # i는 인덱스 값
-    start, end = i+1, len(arr) - 1  # 중복되는 쌍 피하기 위해 탐색 범위 설정
-    target=x-arr[i]
-    while start<=end:
-        mid=(start+end)//2  # mid는 인덱스 값
-        if arr[mid]==target:
-            ans+=1
-            break
-        elif arr[mid]<target:
-            start=mid+1
-        elif arr[mid]>target:
-            end=mid-1
-print(ans)
+
+'''
+시간초과 
+cnt=0
+for i in range(n): # O(N)
+    value=x-a[i]
+    for j in range(i+1,n): # O(N)
+        if a[j]==value:
+            cnt+=1
+print(cnt)
+'''
+
+# value 값 존재하는지 탐색하지 않고, 바로 알 수 있다면?
+cnt=0
+exits=[False]*1000001 # 1~1000000 까지 숫자 나왔는지
+for i in a:
+    exits[i]=True
+for i in a: # O(N)
+    value=x-i
+    if value<=i:
+        continue
+    if 1<=value and value<=1000000:
+        if exits[value]:
+            cnt+=1
+print(cnt)
