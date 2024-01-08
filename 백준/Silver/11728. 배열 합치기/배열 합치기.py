@@ -1,20 +1,25 @@
 n,m=map(int,input().split())
-listA=list(map(int,input().split()))
-listB=list(map(int,input().split()))
-a,b=0,0
+A=list(map(int,input().split()))
+B=list(map(int,input().split()))
+
+idx1=idx2=0
+
 ans=[]
-while a!=n or b!=m:    # a==len(a) and b==len(b)면 while문 탈출
-    if n==a:
-        ans.append(listB[b])
-        b+=1
-    elif m==b:
-        ans.append(listA[a])
-        a+=1
+
+while idx1<n and idx2<m:
+    if A[idx1]<B[idx2]:
+        ans.append(A[idx1])
+        idx1+=1
     else:
-        if listA[a]>listB[b]:
-            ans.append(listB[b])
-            b+=1
-        else:
-            ans.append(listA[a])
-            a+=1
+        ans.append(B[idx2])
+        idx2+=1
+
+while idx1<n:
+    ans.append(A[idx1])
+    idx1+=1
+    
+while idx2<m:
+    ans.append(B[idx2])
+    idx2+=1
+
 print(*ans)
