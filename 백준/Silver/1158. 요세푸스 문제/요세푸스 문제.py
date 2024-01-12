@@ -1,18 +1,34 @@
+from collections import deque
 n,k=map(int,input().split())
 
-arr=[]
+queue=deque()
+
 for i in range(n):
-    arr.append(i+1)
+    queue.append(i+1)
 
-idx=0
+point=0
 ans=[]
-while len(arr)>0:
-    idx=idx+k-1
-    if idx>=len(arr):
-        idx=idx%len(arr)
-    ans.append(str(arr[idx]))
-    arr.pop(idx)
+while queue:
+    for _ in range(k-1):
+        queue.append(queue.popleft())
+    ans.append(queue.popleft())
 
-print("<", end='')
-print(', '.join(ans), end='')
-print(">", end='')
+print(str(ans).replace('[', '<').replace(']','>'))
+
+#n,k=map(int,input().split())
+# arr=[]
+# for i in range(n):
+#     arr.append(i+1)
+#
+# idx=0
+# ans=[]
+# while len(arr)>0:
+#     idx=idx+k-1
+#     if idx>=len(arr):
+#         idx=idx%len(arr)
+#     ans.append(str(arr[idx]))
+#     arr.pop(idx)
+#
+# print("<", end='')
+# print(', '.join(ans), end='')
+# print(">", end='')
