@@ -3,11 +3,12 @@
 # 0 은 라우터가 패킷 하나 처리함
 # -1은 입력의 끝
 from collections import deque
-n=int(input())
+import sys
+n=int(sys.stdin.readline())
 queue=deque()
 
 while True:
-    p=int(input())
+    p=int(sys.stdin.readline())
     if p==0:
         queue.popleft()
         continue
