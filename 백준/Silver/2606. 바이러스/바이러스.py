@@ -1,24 +1,26 @@
-from collections import deque
 n=int(input())
 m=int(input())
-adj=[ [] for _ in range(n+1) ]
+
+arr=[ [] for _ in range(n+1) ]
+
 for _ in range(m):
-    x,y=map(int,input().split())
-    adj[x].append(y)
-    adj[y].append(x)
-    
-visited=[0]*(n+1)
-def bfs(x):
-    queue=deque()
-    queue.append(x)
-    visited[x]=1
-    
-    while queue:
-        v=queue.popleft()
-        for i in adj[v]:
-            if not visited[i]:
-                queue.append(i)
-                visited[i]=1
-bfs(1)
-print(sum(visited)-1)
-    
+    a,b=map(int,input().split())
+    arr[a].append(b)
+    arr[b].append(a)
+
+count=0
+
+def dfs(node):
+    visited[node]=True
+    global count
+    count+=1
+
+    for i in arr[node]:
+        if not visited[i]:
+            dfs(i)
+
+
+visited=[False]*(n+1)
+dfs(1)
+
+print(count-1)
